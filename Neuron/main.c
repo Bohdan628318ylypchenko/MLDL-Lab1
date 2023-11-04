@@ -5,13 +5,13 @@
 
 #define n 3
 #define l 1
-#define a 0.1
-#define PRECISION 0.01
+#define a 0.05
+#define PRECISION 0.001
 #define MAX_EPOCH_COUNT 100
 
 int main()
 {
-	double w[n] = { 0.1, 0.5, 0.4 };
+	double w[n] = { 0.9, 0.1, 0.4 };
 	double x[n] = { 0.2, 0.7, 1.0 };
 	double yt = 0.9;
 

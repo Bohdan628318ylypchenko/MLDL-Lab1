@@ -11,6 +11,14 @@ static void _grad(unsigned long n, double * x,
 
 static void _norm(unsigned long n, double * v);
 
+/// <summary>
+/// Calculates neuron output.
+/// </summary>
+/// <param name="n"> Neuron dimension: weight count / input count (include shift). </param>
+/// <param name="w"> Weights array (include shift. </param>
+/// <param name="x"> Input array (include shift). </param>
+/// <param name="l"> Activation function smoothing coefficient. </param>
+/// <returns> Neuron output. </returns>
 double neuron_activate(unsigned long n, double * w, double * x, double l)
 {
 	// Activation function argument
@@ -25,6 +33,16 @@ double neuron_activate(unsigned long n, double * w, double * x, double l)
 	return ya;
 }
 
+/// <summary>
+/// Adjusts neuron weights by gradient of Error from w values.
+/// </summary>
+/// <param name="n"> Neuron dimension: weight count / input count (include shift). </param>
+/// <param name="w"> Weights array (include shift). </param>
+/// <param name="x"> Input array (include shift). </param>
+/// <param name="ya"> Neuron output. </param>
+/// <param name="yt"> Expected output. </param>
+/// <param name="l"> Activation function smoothing coefficient: o(s) = 1 / (1 + e ^ (-l * s)) </param>
+/// <param name="a"> Weight adjustment length coefficient: wn = wc - a * ngrad </param>
 void neuron_adjust_weights(unsigned long n,
 						   double * w, double * x, 
 				           double ya, double yt, double l, double a)
@@ -44,6 +62,16 @@ void neuron_adjust_weights(unsigned long n,
 	free(grad);
 }
 
+/// <summary>
+/// Calculates gradient of E(W).
+/// Result is stored in grad.
+/// </summary>
+/// <param name="n"> Dimension. </param>
+/// <param name="x"> Neuron input. </param>
+/// <param name="ya"> Neuron output. </param>
+/// <param name="yt"> Expected output. </param>
+/// <param name="l"> Activation function smoothing coefficient. </param>
+/// <param name="grad"> Array to store gradient coordinates in. </param>
 static void _grad(unsigned long n, double * x,
 				  double ya, double yt, double l,
 				  double * grad)
@@ -54,9 +82,14 @@ static void _grad(unsigned long n, double * x,
 		        * x[i];             // ds/dwi;
 }
 
+/// <summary>
+/// Normalizes given vector.
+/// </summary>
+/// <param name="n"> Vector dimension. </param>
+/// <param name="v"> Vector values. </param>
 static void _norm(unsigned long n, double * v)
 {
-	// grad module
+	// vector module
 	double m = 0;
 	for (unsigned long i = 0; i < n; i++)
 		m += v[i] * v[i];
